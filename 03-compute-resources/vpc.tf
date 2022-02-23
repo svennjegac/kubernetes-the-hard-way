@@ -123,8 +123,8 @@ resource "aws_network_acl" "k8s_main" {
     rule_no    = 500
     to_port    = 0
     cidr_block = local.cidr_all
-    icmp_code  = 0
-    icmp_type  = 0
+    icmp_code  = -1
+    icmp_type  = -1
   }
 
   tags = {

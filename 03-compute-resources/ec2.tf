@@ -6,6 +6,10 @@ locals {
 resource "aws_key_pair" "k8s_key_pair" {
   key_name   = "k8s_ssh_key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhC2Q65G1NyAGq5vueaLiYBS7eH2vnoHuf2hHVMWOT6hMFYhHePkVBjG4pWQqcX48fpX2t7ZChkFRfz3ZyMl72zAXmNQgD/JH0zXYvnmaL6YvtvJXng7LR0/r26c2GIgWaBn7pO9wSXSIM/ZBYY5tYC+p5MZj0Edb64vuV0fS3RYNidNTk09gzyT2q7hYLyOiUeBPnEhoOSMONblpRV/B+tgqT1f17V2va3RKMKWQVtptSpMq7rfr4XbXL9DAzeoWekQssG3xboPRMnBDH3QLGJZ07OzMtF6o8IiLTWbynNL61hWxikV5ubgaUbt50x9cRuL7Q05suzre4a8k2+TfqqZIdgcEc/XAbcGcFCsOwMm2O3XJGQ2Sl5pXPzbpjX6pDGR65uFmlyC5jui3c6i3/h7Tg6equFzmlO5rzIz16Bbeso3ytXgGaq1DBR0TfOwdFcqfe1jwUw2uMqOLxoNHsIOgF8RNDPYtL8Lac2Wrx7nwkXTG7oCbAFasbb7nXw0x1acAXi/bhKhUq2WO4S26lcbyWx73fukCsRaoXJp5emjTjBv5/hTsD5vDAxX9U2moiiz67FkrETooXIZpuTGsPKueJEy6AoEWzxsulrWR48cypAU5ZJ5qhBkGcuw4aG2sw9b947+i2YNv044NCPHI4UcOrgm8FJfNOhfS0uPIeaw== example@email.com"
+
+  tags = {
+    Name = "k8s_key_pair"
+  }
 }
 
 resource "aws_security_group" "k8s_security_group" {
@@ -44,9 +48,9 @@ resource "aws_security_group" "k8s_security_group" {
     cidr_blocks = [local.cidr_all]
   }
   ingress {
-    from_port   = 0
+    from_port   = -1
     protocol    = local.icmp_protocol
-    to_port     = 0
+    to_port     = -1
     cidr_blocks = [local.cidr_all]
   }
 
