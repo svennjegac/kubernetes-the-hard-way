@@ -68,8 +68,8 @@ resource "aws_instance" "k8s_control_plane" {
   availability_zone           = local.subnet_az
   key_name                    = aws_key_pair.k8s_key_pair.key_name
 
-  subnet_id       = aws_subnet.k8s_main.id
-  private_ip      = "10.240.0.1${count.index}"
+  subnet_id              = aws_subnet.k8s_main.id
+  private_ip             = "10.240.0.1${count.index}"
   vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
@@ -87,13 +87,30 @@ resource "aws_instance" "k8s_worker_plane" {
   availability_zone           = local.subnet_az
   key_name                    = aws_key_pair.k8s_key_pair.key_name
 
-  subnet_id       = aws_subnet.k8s_main.id
-  private_ip      = "10.240.0.2${count.index}"
+  subnet_id              = aws_subnet.k8s_main.id
+  private_ip             = local.workers[count.index]["private_ip"]
   vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
-    Name = "k8s_worker_${count.index}"
+    Name = "${local.worker_name}_${count.index}"
   }
 
-  count = 3
+  count = local.num_workers
+}
+
+locals {
+  worker_name      = "k8s_worker"
+  num_workers      = 3
+  worker_ip_prefix = "10.240.0.2"
+  workers = [
+    for i in range(0, 3) :
+    {
+      name       = "${local.worker_name}_${i}"
+      private_ip = "${local.worker_ip_prefix}${i}"
+    }
+  ]
+}
+
+output "k8s_worker_ips" {
+  value = local.workers
 }
