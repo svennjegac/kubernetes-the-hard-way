@@ -70,7 +70,7 @@ resource "aws_instance" "k8s_control_plane" {
 
   subnet_id       = aws_subnet.k8s_main.id
   private_ip      = "10.240.0.1${count.index}"
-  security_groups = [aws_security_group.k8s_security_group.id]
+  vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
     Name = "k8s_controller_${count.index}"
@@ -89,7 +89,7 @@ resource "aws_instance" "k8s_worker_plane" {
 
   subnet_id       = aws_subnet.k8s_main.id
   private_ip      = "10.240.0.2${count.index}"
-  security_groups = [aws_security_group.k8s_security_group.id]
+  vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
     Name = "k8s_worker_${count.index}"
