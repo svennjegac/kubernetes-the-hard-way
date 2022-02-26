@@ -114,3 +114,13 @@ locals {
 output "k8s_worker_ips" {
   value = local.workers
 }
+
+output "k8s_workers" {
+  value = [
+    for k, v in aws_instance.k8s_worker_plane : {
+      name : v.tags["Name"]
+      public_ip : v.public_ip,
+      private_ip : v.private_ip
+    }
+  ]
+}
