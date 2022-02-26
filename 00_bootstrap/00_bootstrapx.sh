@@ -14,4 +14,8 @@ cd 05-kubeconfigs
 zsh 05_bootstrapx.sh
 cd ..
 
+cd 06-data-encryption-keys
+zsh 06_bootstrapx.sh
+cd ..
+
 rm -rf 99_shared
