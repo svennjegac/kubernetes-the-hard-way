@@ -9,9 +9,8 @@ public_ip=$splits[3]
 ssh-keyscan -H $public_ip >> ~/.ssh/known_hosts
 
 scp -i ../../99_shared/03_k8s_ssh_key \
-  ../ca/ca.pem \
-  ../kubeletclientcert/${instance}-key.pem \
-  ../kubeletclientcert/${instance}.pem \
+  ../kubeletconfigs/${instance}.kubeconfig \
+  ../kubeproxyconfigs/kube-proxy.kubeconfig \
   ubuntu@$public_ip:~/
 
 done <./../../99_shared/03_workers.txt

@@ -13,3 +13,7 @@ cd ..
 cd 04-certificate-authority
 zsh 04_bootstrap.sh
 cd ..
+
+cd 05-kubeconfigs
+zsh 05_bootstrap.sh
+cd ..
