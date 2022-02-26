@@ -32,6 +32,10 @@ resource "aws_lb_target_group" "k8s_main" {
     enabled         = false
     type            = "source_ip"
   }
+
+  tags = {
+    Name = "k8s_main"
+  }
 }
 
 resource "aws_lb_target_group_attachment" "k8s_main" {
@@ -54,6 +58,10 @@ resource "aws_lb" "k8s_main" {
     subnet_id     = aws_subnet.k8s_main.id
     allocation_id = aws_eip.k8s_main.id
   }
+
+  tags = {
+    Name = "k8s_main"
+  }
 }
 
 resource "aws_lb_listener" "k8s_main" {
@@ -64,5 +72,9 @@ resource "aws_lb_listener" "k8s_main" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.k8s_main.arn
+  }
+
+  tags = {
+    Name = "k8s_main"
   }
 }
