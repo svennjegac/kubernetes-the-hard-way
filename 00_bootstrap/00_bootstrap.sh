@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 cd ..
 
 mkdir 99_shared

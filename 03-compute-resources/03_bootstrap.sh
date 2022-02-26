@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-source 03_ssh_keygen.sh
+set -e
+
+source 03_gen_keys.sh
 
 echo "exported var"
 echo $TF_VAR_k8s_ssh_public_key
