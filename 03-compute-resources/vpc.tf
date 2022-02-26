@@ -1,17 +1,3 @@
-locals {
-  cidr_all = "0.0.0.0/0"
-
-  vpc_cidr    = "10.240.0.0/16"
-  subnet_cidr = "10.240.0.0/24"
-  subnet_az   = "eu-central-1a"
-
-  ssh_protocol   = "6"
-  https_protocol = "6"
-  icmp_protocol  = "1"
-
-  k8s_cidr = "10.200.0.0/16"
-}
-
 resource "aws_vpc" "k8s_main" {
   cidr_block = local.vpc_cidr
 
@@ -31,6 +17,17 @@ resource "aws_subnet" "k8s_main" {
 
   tags = {
     Name = "k8s_subnet"
+  }
+}
+
+resource "aws_subnet" "k8s_fake" {
+  vpc_id     = aws_vpc.k8s_main.id
+  cidr_block = local.fake_subnet_cidr
+
+  availability_zone = local.fake_subnet_az
+
+  tags = {
+    Name = "k8s_fake_subnet"
   }
 }
 
@@ -55,9 +52,27 @@ resource "aws_route_table" "k8s_main" {
   }
 }
 
+resource "aws_route_table" "k8s_fake" {
+  vpc_id = aws_vpc.k8s_main.id
+
+  route {
+    cidr_block = local.cidr_all
+    gateway_id = aws_internet_gateway.k8s_main.id
+  }
+
+  tags = {
+    Name = "k8s_fake_route_table"
+  }
+}
+
 resource "aws_route_table_association" "k8s_main" {
   route_table_id = aws_route_table.k8s_main.id
   subnet_id      = aws_subnet.k8s_main.id
+}
+
+resource "aws_route_table_association" "k8s_fake" {
+  route_table_id = aws_route_table.k8s_fake.id
+  subnet_id      = aws_subnet.k8s_fake.id
 }
 
 resource "aws_network_acl" "k8s_main" {
@@ -77,7 +92,7 @@ resource "aws_network_acl" "k8s_main" {
   }
 
   // TODO
-  // allow all egress
+  // allow all ingress
   ingress {
     action     = "allow"
     from_port  = 0
