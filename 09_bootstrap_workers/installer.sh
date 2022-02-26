@@ -3,10 +3,8 @@
 export POD_CIDR=`cat pod_cidr.txt`
 export HOSTNAME=`cat hostname.txt`
 
-sudo apt-get update
-sudo apt-get -y install socat conntrack ipset
-
-sudo swapoff -a
+# sudo swapon --show
+# sudo swapoff -a
 
 wget -q --show-progress --https-only --timestamping \
   https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.21.0/crictl-v1.21.0-linux-amd64.tar.gz \
@@ -66,6 +64,7 @@ EOF
 #######################
 #### Containerd
 sudo mkdir -p /etc/containerd/
+
 cat << EOF | sudo tee /etc/containerd/config.toml
 [plugins]
   [plugins.cri.containerd]
@@ -75,6 +74,7 @@ cat << EOF | sudo tee /etc/containerd/config.toml
       runtime_engine = "/usr/local/bin/runc"
       runtime_root = ""
 EOF
+
 cat <<EOF | sudo tee /etc/systemd/system/containerd.service
 [Unit]
 Description=containerd container runtime
@@ -150,7 +150,7 @@ WantedBy=multi-user.target
 EOF
 
 #######################
-#### Kubelet
+#### Kube proxy
 sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 cat <<EOF | sudo tee /var/lib/kube-proxy/kube-proxy-config.yaml
@@ -180,6 +180,4 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable containerd kubelet kube-proxy
-sudo systemctl start --no-block containerd
-sudo systemctl start --no-block kubelet
-sudo systemctl start --no-block kube-proxy
+sudo systemctl start containerd kubelet kube-proxy &
