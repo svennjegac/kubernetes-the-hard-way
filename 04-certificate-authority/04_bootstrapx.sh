@@ -7,3 +7,7 @@ cd ..
 cd adminclientcert
 sh gen_certx.sh
 cd ..
+
+cd kubeletclientcert
+sh gen_certx.sh
+cd ..
