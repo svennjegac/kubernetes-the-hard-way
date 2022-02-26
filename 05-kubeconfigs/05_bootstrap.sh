@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 cd admin
 sh gen_confs.sh
 cd ..

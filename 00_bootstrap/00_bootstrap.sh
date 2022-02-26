@@ -10,6 +10,9 @@ cd 03-compute-resources
 sh 03_bootstrap.sh
 cd ..
 
+echo "waiting ec2s"
+sleep 10
+
 cd 04-certificate-authority
 zsh 04_bootstrap.sh
 cd ..

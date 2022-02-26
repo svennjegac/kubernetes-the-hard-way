@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 if [ -f 03_k8s_ssh_key ]; then
   chmod 777 03_k8s_ssh_key
   rm 03_k8s_ssh_key

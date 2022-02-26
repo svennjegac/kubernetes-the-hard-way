@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 cd ca
 sh gen_certx.sh
 cd ..

@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 cd ..
 
 cd 03-compute-resources

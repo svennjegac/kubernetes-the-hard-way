@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 echo $ENCRYPTION_KEY
 
