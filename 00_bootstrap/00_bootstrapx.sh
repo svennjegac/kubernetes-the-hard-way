@@ -10,4 +10,8 @@ cd 04-certificate-authority
 sh 04_bootstrapx.sh
 cd ..
 
+cd 05-kubeconfigs
+zsh 05_bootstrapx.sh
+cd ..
+
 rm -rf 99_shared
