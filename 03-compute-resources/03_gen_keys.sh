@@ -15,3 +15,4 @@ chmod 400 03_k8s_ssh_key.pub
 
 export TF_VAR_k8s_ssh_public_key=`cat 03_k8s_ssh_key.pub`
 mv 03_k8s_ssh_key ../99_shared
+chmod 400 ../99_shared/03_k8s_ssh_key
