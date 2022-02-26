@@ -24,3 +24,7 @@ cd ..
 cd 06-data-encryption-keys
 zsh 06_bootstrap.sh
 cd ..
+
+cd 07-bootstrap-etcd
+zsh 07_bootstrap.sh
+cd ..

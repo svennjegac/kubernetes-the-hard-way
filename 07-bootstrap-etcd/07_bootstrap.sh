@@ -2,6 +2,8 @@
 
 set -e
 
+zsh 07_prepare_hosts.sh
+
 while read line; do
 splits=("${(@s/ /)line}")
 instance=$splits[1]
