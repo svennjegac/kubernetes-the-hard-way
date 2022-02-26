@@ -76,6 +76,19 @@ resource "aws_network_acl" "k8s_main" {
     icmp_type  = 0
   }
 
+  // TODO
+  // allow all egress
+  ingress {
+    action     = "allow"
+    from_port  = 0
+    protocol   = "-1"
+    rule_no    = 99
+    to_port    = 0
+    cidr_block = local.cidr_all
+    icmp_code  = 0
+    icmp_type  = 0
+  }
+
   // allow vpc subnets
   ingress {
     action     = "allow"

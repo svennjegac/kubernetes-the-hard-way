@@ -23,6 +23,14 @@ resource "aws_security_group" "k8s_security_group" {
     cidr_blocks = [local.cidr_all]
   }
 
+  // TODO
+  ingress {
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+    cidr_blocks = [local.cidr_all]
+  }
+
   ingress {
     from_port   = 0
     protocol    = "-1"
