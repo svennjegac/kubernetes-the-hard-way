@@ -13,7 +13,7 @@ sh gen_cert.sh
 cd ..
 
 cd kubeletclientcert
-sh gen_cert.sh
+zsh gen_cert.sh
 cd ..
 
 cd kubeproxyclientcert
@@ -30,4 +30,10 @@ cd ..
 
 cd serviceaccoutnkeypair
 sh gen_cert.sh
+cd ..
+
+cd xx-distribute
+zsh distribute.sh
+cd ..
+
 cd ..

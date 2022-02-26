@@ -1,4 +1,4 @@
 #!/bin/zsh
 
-sh distribute_controllers.sh
-sh distribute_workers.sh
+zsh distribute_controllers.sh
+zsh distribute_workers.sh
