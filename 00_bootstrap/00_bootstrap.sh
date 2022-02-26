@@ -36,3 +36,7 @@ cd ..
 cd 08_bootstrap-controllers
 zsh 08_bootstrap.sh
 cd ..
+
+cd 09_bootstrap_workers
+zsh 09_bootstrap.sh
+cd ..
