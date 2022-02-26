@@ -5,7 +5,7 @@ locals {
 
 resource "aws_key_pair" "k8s_key_pair" {
   key_name   = "k8s_ssh_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhC2Q65G1NyAGq5vueaLiYBS7eH2vnoHuf2hHVMWOT6hMFYhHePkVBjG4pWQqcX48fpX2t7ZChkFRfz3ZyMl72zAXmNQgD/JH0zXYvnmaL6YvtvJXng7LR0/r26c2GIgWaBn7pO9wSXSIM/ZBYY5tYC+p5MZj0Edb64vuV0fS3RYNidNTk09gzyT2q7hYLyOiUeBPnEhoOSMONblpRV/B+tgqT1f17V2va3RKMKWQVtptSpMq7rfr4XbXL9DAzeoWekQssG3xboPRMnBDH3QLGJZ07OzMtF6o8IiLTWbynNL61hWxikV5ubgaUbt50x9cRuL7Q05suzre4a8k2+TfqqZIdgcEc/XAbcGcFCsOwMm2O3XJGQ2Sl5pXPzbpjX6pDGR65uFmlyC5jui3c6i3/h7Tg6equFzmlO5rzIz16Bbeso3ytXgGaq1DBR0TfOwdFcqfe1jwUw2uMqOLxoNHsIOgF8RNDPYtL8Lac2Wrx7nwkXTG7oCbAFasbb7nXw0x1acAXi/bhKhUq2WO4S26lcbyWx73fukCsRaoXJp5emjTjBv5/hTsD5vDAxX9U2moiiz67FkrETooXIZpuTGsPKueJEy6AoEWzxsulrWR48cypAU5ZJ5qhBkGcuw4aG2sw9b947+i2YNv044NCPHI4UcOrgm8FJfNOhfS0uPIeaw== example@email.com"
+  public_key = var.k8s_ssh_public_key
 
   tags = {
     Name = "k8s_key_pair"
@@ -73,7 +73,7 @@ resource "aws_instance" "k8s_control_plane" {
   vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
-    Name = "k8s_controller_${count.index}"
+    Name = "controller-${count.index}"
   }
 
   count = 3
@@ -92,20 +92,20 @@ resource "aws_instance" "k8s_worker_plane" {
   vpc_security_group_ids = [aws_security_group.k8s_security_group.id]
 
   tags = {
-    Name = "${local.worker_name}_${count.index}"
+    Name = "${local.worker_name}-${count.index}"
   }
 
   count = local.num_workers
 }
 
 locals {
-  worker_name      = "k8s_worker"
+  worker_name      = "worker"
   num_workers      = 3
   worker_ip_prefix = "10.240.0.2"
   workers = [
     for i in range(0, 3) :
     {
-      name       = "${local.worker_name}_${i}"
+      name       = "${local.worker_name}-${i}"
       private_ip = "${local.worker_ip_prefix}${i}"
     }
   ]
