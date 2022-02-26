@@ -11,5 +11,5 @@ sh 03_bootstrap.sh
 cd ..
 
 cd 04-certificate-authority
-sh 04_bootstrap.sh
+zsh 04_bootstrap.sh
 cd ..
