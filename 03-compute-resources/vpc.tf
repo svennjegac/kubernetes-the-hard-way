@@ -8,6 +8,8 @@ locals {
   ssh_protocol   = "6"
   https_protocol = "6"
   icmp_protocol  = "1"
+
+  k8s_cidr = "10.200.0.0/16"
 }
 
 resource "aws_vpc" "k8s_main" {

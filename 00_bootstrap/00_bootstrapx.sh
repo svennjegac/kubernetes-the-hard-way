@@ -9,3 +9,5 @@ cd ..
 cd 04-certificate-authority
 sh 04_bootstrapx.sh
 cd ..
+
+rm -rf 99_shared

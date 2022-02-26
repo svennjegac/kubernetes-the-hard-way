@@ -2,6 +2,8 @@
 
 cd ..
 
+mkdir 99_shared
+
 cd 03-compute-resources
 sh 03_bootstrap.sh
 cd ..

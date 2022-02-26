@@ -30,6 +30,12 @@ resource "aws_security_group" "k8s_security_group" {
     cidr_blocks = [local.subnet_cidr]
   }
   ingress {
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+    cidr_blocks = [local.k8s_cidr]
+  }
+  ingress {
     from_port   = 22
     protocol    = local.ssh_protocol
     to_port     = 22
@@ -107,20 +113,6 @@ locals {
     {
       name       = "${local.worker_name}-${i}"
       private_ip = "${local.worker_ip_prefix}${i}"
-    }
-  ]
-}
-
-output "k8s_worker_ips" {
-  value = local.workers
-}
-
-output "k8s_workers" {
-  value = [
-    for k, v in aws_instance.k8s_worker_plane : {
-      name : v.tags["Name"]
-      public_ip : v.public_ip,
-      private_ip : v.private_ip
     }
   ]
 }
