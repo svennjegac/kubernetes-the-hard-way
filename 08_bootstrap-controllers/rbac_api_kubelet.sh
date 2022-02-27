@@ -35,7 +35,7 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: worker-0
+    name: system:node:worker-0
 EOF
 
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
@@ -51,7 +51,7 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: worker-1
+    name: system:node:worker-1
 EOF
 
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
@@ -67,5 +67,5 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: worker-2
+    name: system:node:worker-2
 EOF
