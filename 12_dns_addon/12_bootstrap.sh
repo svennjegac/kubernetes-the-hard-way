@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 while read line; do
 splits=("${(@s/ /)line}")
 instance=$splits[1]
