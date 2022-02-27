@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-
 KUBERNETES_PUBLIC_ADDRESS=`cat ../99_shared/03_eip.txt`
 
 kubectl config set-cluster kubernetes-the-hard-way \

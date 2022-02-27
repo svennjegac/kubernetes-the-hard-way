@@ -29,6 +29,7 @@ splits=("${(@s/ /)line}")
 instance=$splits[1]
 private_ip=$splits[2]
 public_ip=$splits[3]
+private_dns=$splits[4]
 
 if [[ $instance == "worker-0" ]]; then
   echo -n "10.200.0.0/24" > pod_cidr.txt
@@ -39,8 +40,10 @@ else
 fi
 
 echo -n $instance > hostname.txt
-scp -i ../99_shared/03_k8s_ssh_key pod_cidr.txt hostname.txt ubuntu@$public_ip:~/
+echo -n $private_dns > aws_dns.txt
+scp -i ../99_shared/03_k8s_ssh_key pod_cidr.txt hostname.txt aws_dns.txt ubuntu@$public_ip:~/
 rm pod_cidr.txt
 rm hostname.txt
+rm aws_dns.txt
 
 done <./../99_shared/03_workers.txt

@@ -7,6 +7,7 @@ while read line; do
   instance=$splits[1]
   private_ip=$splits[2]
   public_ip=$splits[3]
+  private_dns=$splits[4]
 
   kubectl config set-cluster kubernetes-the-hard-way \
     --certificate-authority=../../04-certificate-authority/ca/ca.pem \
@@ -14,7 +15,7 @@ while read line; do
     --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \
     --kubeconfig=${instance}.kubeconfig
 
-  kubectl config set-credentials system:node:${instance} \
+  kubectl config set-credentials system:node:${private_dns} \
     --client-certificate=../../04-certificate-authority/kubeletclientcert/${instance}.pem \
     --client-key=../../04-certificate-authority/kubeletclientcert/${instance}-key.pem \
     --embed-certs=true \
@@ -22,7 +23,7 @@ while read line; do
 
   kubectl config set-context default \
     --cluster=kubernetes-the-hard-way \
-    --user=system:node:${instance} \
+    --user=system:node:${private_dns} \
     --kubeconfig=${instance}.kubeconfig
 
   kubectl config use-context default --kubeconfig=${instance}.kubeconfig

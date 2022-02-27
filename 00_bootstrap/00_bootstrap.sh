@@ -40,3 +40,7 @@ cd ..
 cd 09_bootstrap_workers
 zsh 09_bootstrap.sh
 cd ..
+
+cd 12_dns_addon
+zsh 12_bootstrap.sh
+cd ..

@@ -8,6 +8,7 @@ output "k8s_workers" {
       name : v.tags["Name"]
       public_ip : v.public_ip,
       private_ip : v.private_ip
+      private_dns : v.private_dns
     }
   ]
 }

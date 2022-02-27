@@ -5,10 +5,11 @@ splits=("${(@s/ /)line}")
 instance=$splits[1]
 private_ip=$splits[2]
 public_ip=$splits[3]
+private_dns=$splits[4]
 
 cat > ${instance}-csr.json <<EOF
 {
-  "CN": "system:node:${instance}",
+  "CN": "system:node:${private_dns}",
   "key": {
     "algo": "rsa",
     "size": 2048
@@ -29,7 +30,7 @@ cfssl gencert \
   -ca=../ca/ca.pem \
   -ca-key=../ca/ca-key.pem \
   -config=../ca/ca-config.json \
-  -hostname=${instance},${public_ip},${private_ip} \
+  -hostname=${private_dns},${public_ip},${private_ip} \
   -profile=kubernetes \
   ${instance}-csr.json | cfssljson -bare ${instance}
 done <./../../99_shared/03_workers.txt
