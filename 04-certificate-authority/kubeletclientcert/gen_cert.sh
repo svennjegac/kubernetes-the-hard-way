@@ -8,7 +8,7 @@ public_ip=$splits[3]
 
 cat > ${instance}-csr.json <<EOF
 {
-  "CN": "system-node-${instance}",
+  "CN": "system:node:${instance}",
   "key": {
     "algo": "rsa",
     "size": 2048

@@ -26,7 +26,7 @@ cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: system:node:admin:0
+  name: system:node:admin:00
   namespace: ""
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -35,14 +35,14 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: system-node-worker-0
+    name: worker-0
 EOF
 
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: system:node:admin:1
+  name: system:node:admin:11
   namespace: ""
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -51,14 +51,14 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: system-node-worker-1
+    name: worker-1
 EOF
 
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: system:node:admin:2
+  name: system:node:admin:22
   namespace: ""
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -67,5 +67,5 @@ roleRef:
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: User
-    name: system-node-worker-2
+    name: worker-2
 EOF

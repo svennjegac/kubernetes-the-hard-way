@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 export WHNAME=`cat hostname.txt`
-export WORKER_HOSTNAME=system-node-${WHNAME}
+export WORKER_HOSTNAME=${WHNAME}
 
 sudo sed -i -e "s/127.0.0.1 localhost/127.0.0.1 localhost persistent-hostname/" /etc/hosts
 sudo cat /etc/hosts
