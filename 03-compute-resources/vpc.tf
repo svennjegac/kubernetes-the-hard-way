@@ -48,17 +48,17 @@ resource "aws_route_table" "k8s_main" {
   }
 
   route {
-    cidr_block = local.pod_cidr_0
+    cidr_block  = local.pod_cidr_0
     instance_id = aws_instance.k8s_worker_plane[0].id
   }
 
   route {
-    cidr_block = local.pod_cidr_1
+    cidr_block  = local.pod_cidr_1
     instance_id = aws_instance.k8s_worker_plane[1].id
   }
 
   route {
-    cidr_block = local.pod_cidr_2
+    cidr_block  = local.pod_cidr_2
     instance_id = aws_instance.k8s_worker_plane[2].id
   }
 

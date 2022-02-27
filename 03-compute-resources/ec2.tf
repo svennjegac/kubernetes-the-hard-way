@@ -80,6 +80,7 @@ resource "aws_instance" "k8s_control_plane" {
   subnet_id              = aws_subnet.k8s_main.id
   private_ip             = "10.240.0.1${count.index}"
   vpc_security_group_ids = [aws_security_group.k8s_main.id]
+  source_dest_check      = false
 
   tags = {
     Name = "controller-${count.index}"
@@ -99,6 +100,7 @@ resource "aws_instance" "k8s_worker_plane" {
   subnet_id              = aws_subnet.k8s_main.id
   private_ip             = local.workers[count.index]["private_ip"]
   vpc_security_group_ids = [aws_security_group.k8s_main.id]
+  source_dest_check      = false
 
   tags = {
     Name = "${local.worker_name}-${count.index}"
